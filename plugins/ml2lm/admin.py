@@ -42,7 +42,7 @@ class PlaylistAdmin(admin.ModelAdmin):
         'title',
         'created_at',
         'updated_at',
-        'total_count',
+        'count',
     )
     list_filter = ('created_at', 'updated_at')
     date_hierarchy = 'created_at'

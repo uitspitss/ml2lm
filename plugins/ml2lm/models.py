@@ -10,23 +10,23 @@ mp = re.compile(r'\d+?$')
 
 class Playlist(models.Model):
     url = models.URLField(
-        _('プレイリストURL'),
-        db_index=True
+        db_index=True,
+        verbose_name=_('プレイリストURL'),
     )
     title = models.TextField(
-        _('プレイリストタイトル'),
+        verbose_name=_('プレイリストタイトル'),
     )
     created_at = models.DateTimeField(
-        _('生成日時'),
         auto_now_add=True,
+        verbose_name=_('生成日時'),
     )
     count = models.IntegerField(
-        _('アクセス回数'),
         default=0,
+        verbose_name=_('アクセス回数'),
     )
     updated_at = models.DateTimeField(
-        _('更新日時'),
         auto_now=True,
+        verbose_name=_('更新日時'),
     )
 
     def get_absolute_url(self):
@@ -41,23 +41,24 @@ class Playlist(models.Model):
 
 class Movie(models.Model):
     playlist = models.ForeignKey(
-        _('プレイリスト'),
+        'Playlist',
         related_name='movies',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        verbose_name=_('プレイリスト'),
     )
     url = models.URLField(
-        _('動画URL'),
+        verbose_name=_('動画URL'),
     )
     title = models.TextField(
-        _('動画タイトル'),
+        verbose_name=_('動画タイトル'),
     )
     created_at = models.DateTimeField(
-        _('生成日時'),
         auto_now_add=True,
+        verbose_name=_('生成日時'),
     )
     count = models.IntegerField(
-        _('アクセス回数'),
         default=0,
+        verbose_name=_('アクセス回数'),
     )
 
     def __str__(self):

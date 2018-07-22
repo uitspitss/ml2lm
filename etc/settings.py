@@ -31,7 +31,6 @@ DB_NAME = os.environ.get('DB_NAME', 'app')
 DB_USER = os.environ.get('DB_USER', 'postgres')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'password')
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
-REDIS_HOST = os.environ.get('REDIS_HOST')
 SLACK_API_KEY = os.environ.get('SLACK_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -53,6 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'silk',
     'rest_framework',
+    'webpack_loader',
+    'plugins.ml2lm',
+    'plugins.frontend',
 ]
 
 MIDDLEWARE = [
@@ -143,6 +145,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'src', 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'src', 'media')
 
+
 # Logging
 LOGGING = {
     'version': 1,
@@ -192,7 +195,21 @@ LOGGING = {
     },
 }
 
+
 # silk
 SILKY_AUTHENTICATION = True
 SILKY_AUTHORISATION = True
 SILKY_META = True
+
+
+# webpack_loader
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'frontend/',  # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}
