@@ -1,5 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -29,6 +30,11 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['./plugins/frontend/static/frontend/*.js']),
-    new BundleTracker({filename: './webpack-stats.json'})
+    new BundleTracker({filename: './plugins/frontend/webpack-stats.json'}),
+    new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 8000,
+        proxy: 'http://localhost:8000/'
+    })
   ]
 };
