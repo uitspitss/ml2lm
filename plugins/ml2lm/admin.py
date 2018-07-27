@@ -37,12 +37,12 @@ class MovieInline(admin.TabularInline):
 @admin.register(Playlist)
 class PlaylistAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
+        'short_id',
         'url',
         'title',
+        'count',
         'created_at',
         'updated_at',
-        'count',
     )
     list_filter = ('created_at', 'updated_at')
     date_hierarchy = 'created_at'

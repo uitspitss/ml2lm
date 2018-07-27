@@ -9,6 +9,5 @@ router.register(r'playlist', PlaylistViewSet)
 router.register(r'movie', MovieViewSet)
 
 urlpatterns = [
-    path('api/',
-         include((router.urls, 'api'))),
+    path('api/', include((router.urls, 'api'))),
 ]

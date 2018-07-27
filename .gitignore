@@ -271,6 +271,7 @@ $RECYCLE.BIN/
 
 /docker-components/postgresql/*
 /bin/*
+/tmp/*
 !bin/manage.py
 /src/static/*
 /src/media/*
