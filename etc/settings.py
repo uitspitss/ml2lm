@@ -32,6 +32,8 @@ DB_USER = os.environ.get('DB_USER', 'postgres')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'password')
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
 SLACK_API_KEY = os.environ.get('SLACK_API_KEY')
+YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if DEBUG:
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'silk',
     'rest_framework',
+    'corsheaders',
     'webpack_loader',
     'plugins.ml2lm',
     'plugins.frontend',
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'silk.middleware.SilkyMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -139,7 +143,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'src', 'static')
 
 MEDIA_URL = '/media/'
@@ -162,7 +166,7 @@ LOGGING = {
         'production': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': join(BASE_DIR, 'tmp', 'production.log'),
+            'filename': join('/tmp', 'production.log'),
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 10,
             'backupCount': 10,
@@ -170,7 +174,7 @@ LOGGING = {
         'develop': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': join(BASE_DIR, 'tmp', 'develop.log'),
+            'filename': join('/tmp', 'develop.log'),
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 10,
             'backupCount': 10,
@@ -213,3 +217,7 @@ WEBPACK_LOADER = {
         'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }
 }
+
+
+# cors-headers
+CORS_ORIGIN_ALLOW_ALL = True

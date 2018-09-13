@@ -1,13 +1,49 @@
+import re
+import logging
 from django.views import View
+from django.shortcuts import get_object_or_404, redirect
 from rest_framework import viewsets, filters
 
 from .models import Playlist, Movie
 from .serializer import PlaylistSerializer, MovieSerializer
 
+logger = logging.getLogger(__name__)
+
+
+def redirect_latest_movie(request, short_id: str) -> str:
+    logger.debug(short_id)
+    playlist = get_object_or_404(Playlist, short_id=short_id)
+    latest_movie = playlist.latest_movie
+    latest_movie.count += 1
+    latest_movie.save()
+    playlist.count += 1
+    playlist.save()
+    return redirect(latest_movie.url)
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
+
+    def get_queryset(self) -> Playlist:
+        qs = Playlist.objects.all()
+        url = self.request.query_params.get('url')
+        logger.debug(url)
+        if url is not None:
+            if re.search(r'^https?://www.nicovideo.jp/mylist/', url):
+                mo = re.search(r'(\d+?)\/*$', url)
+                if mo:
+                    playlist_id = mo[1]
+                    url = f"http://www.nicovideo.jp/mylist/{playlist_id}"
+            elif re.search(r'^https?://www.youtube.com/.*list=', url):
+                mo = re.search(r'list=([^&]+)', url)
+                if mo:
+                    logger.debug(mo)
+                    playlist_id = mo[1]
+                    url = f"https://www.youtube.com/playlist?list={playlist_id}"
+            qs = qs.filter(url=url)
+        else:
+            qs = qs.order_by('-updated_at')[:15]
+        return qs
 
 
 class MovieViewSet(viewsets.ModelViewSet):

@@ -1,11 +1,5 @@
-import random
 import pytest
-from pprint import pprint
-from hamcrest import *
-from django.http import HttpResponse
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.core.management import call_command
+
 
 @pytest.mark.django_db
 class TestAcceptance:
@@ -22,5 +16,5 @@ class TestAcceptance:
         ('/admin/dsdcso', 404),
     ])
     def test_admin_views(self, admin_client, url, status_code):
-        c = admin_client.get(url)
-        assert c.status_code == status_code
+        r = admin_client.get(url)
+        assert r.status_code == status_code

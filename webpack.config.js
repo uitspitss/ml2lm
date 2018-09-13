@@ -29,12 +29,14 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['./plugins/frontend/static/frontend/*.js']),
     new BundleTracker({filename: './plugins/frontend/webpack-stats.json'}),
     new BrowserSyncPlugin({
         host: 'localhost',
         port: 8000,
         proxy: 'http://localhost:8000/'
-    })
+    }),
+    new CleanWebpackPlugin(
+      ['./plugins/frontend/static/frontend/*.js'],
+    ),
   ]
 };
