@@ -42,6 +42,19 @@ class Playlist(models.Model):
             return "others"
 
     @property
+    def playlist_id(self) -> str:
+        playlist = ""
+        if self.site == "nicovideo":
+            mo = re.search(r'(\d+?)\/*$', self.url)
+            if mo:
+                playlist_id = mo[1]
+        elif self.site == "youtube":
+            mo = re.search(r'list=([^&]+)', self.url)
+            if mo:
+                playlist_id = mo[1]
+        return playlist_id
+
+    @property
     def latest_movie(self) -> models.Model:
         latest_movie = self.movies.order_by('-created_at').first()
         return latest_movie
