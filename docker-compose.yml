@@ -1,0 +1,24 @@
+version: "2"
+services:
+  app:
+    build: .
+    volumes:
+      - .:/var/www/code
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+    links:
+      - db
+    command: supervisord -n
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=app
+    volumes:
+      - ./docker-components/postgresql/volumes:/var/lib/postgresql/data
