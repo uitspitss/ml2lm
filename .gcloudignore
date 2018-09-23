@@ -27,3 +27,8 @@ node_modules/
 
 # vscode
 .vscode/
+
+# docker
+Dockerfile
+docker-components/
+docker-compose.yml
