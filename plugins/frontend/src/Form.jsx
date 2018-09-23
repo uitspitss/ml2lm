@@ -20,8 +20,8 @@ export default class Form extends Component {
     this.handlePostUrl = this.handlePostUrl.bind(this);
     this.state = {
       url: '',
-      shortenUrl: '',
-      shortenTitle: '',
+      shortenedUrl: '',
+      shortenedTitle: '',
       thumbnailUrl: '',
       disablePost: true,
       shortenSuccess: false,
@@ -33,7 +33,7 @@ export default class Form extends Component {
     this.setState(
       {
         url: url,
-        shortenUrl: ''
+        shortenedUrl: ''
       },
       () => {
         axios.get(`${this.props.endpoint}?url=${url}`)
@@ -46,15 +46,15 @@ export default class Form extends Component {
         .then(data => {
           if(data.length){
             this.setState({
-              shortenUrl: `${location.protocol}//${location.host}/${data[0].short_id}`,
+              shortenedUrl: `${location.protocol}//${location.host}/${data[0].short_id}`,
               disablePost: true
             });
           } else {
             if(this.state.url === '') {
               this.setState({
                 disablePost: true,
-                shortenUrl: '',
-                shortenTitle: '',
+                shortenedUrl: '',
+                shortenedTitle: '',
                 thumbnailUrl: '',
                 shortenSuccess: false,
               });
@@ -83,8 +83,8 @@ export default class Form extends Component {
     .then(data => {
       this.setState({
         disablePost: true,
-        shortenUrl: `${location.protocol}//${location.host}/${data.short_id}`,
-        shortenTitle: data.title,
+        shortenedUrl: `${location.protocol}//${location.host}/${data.short_id}`,
+        shortenedTitle: data.title,
         thumbnailUrl: data.thumbnail_url,
         shortenSuccess: true,
       });
@@ -126,7 +126,7 @@ export default class Form extends Component {
           <Grid item>
             <TextField
               label="shorten playlist url"
-              value={this.state.shortenUrl}
+              value={this.state.shortenedUrl}
               placeholder="shorten url"
               style={{ width: '300px' }}
               margin="normal"
@@ -142,10 +142,12 @@ export default class Form extends Component {
           <GridList cols={1} style={{ width: '300px' }}>
             <GridListTile>
               <img src={this.state.thumbnailUrl} />
-              <GridListTileBar
-                title={this.state.shortenTitle}
-                titlePosition="top"
-              />
+              <a href={this.state.shortenedUrl}>
+                <GridListTileBar
+                  title={this.state.shortenedTitle}
+                  titlePosition="top"
+                />
+              </a>
             </GridListTile>
           </GridList>
         </Grid>

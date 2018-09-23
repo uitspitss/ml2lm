@@ -4,16 +4,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import Form from './Form.jsx';
-import Table from './Table.jsx';
+import Form from './Form';
+import Table from './Table';
 
 
 const App = () => (
-  <div>
+  <div className="App">
     <AppBar position="static">
       <Toolbar>
         <Typography variant="title" color="inherit">
-          Functional URL Shortner
+          ML2LM
         </Typography>
       </Toolbar>
     </AppBar>
