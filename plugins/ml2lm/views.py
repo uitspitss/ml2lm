@@ -1,7 +1,9 @@
 import re
 import logging
+from threading import Thread
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect
+from django.core.management import call_command
 from rest_framework import viewsets, filters
 
 from .models import Playlist, Movie
@@ -19,6 +21,13 @@ def redirect_latest_movie(request, short_id: str) -> str:
     playlist.count += 1
     playlist.save()
     return redirect(latest_movie.url)
+
+def update_playlists(requets) -> str:
+    def command():
+        call_command('update_playlists')
+    th = Thread(target=command)
+    th.start()
+    return redirect('/')
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()

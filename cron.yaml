@@ -1,0 +1,4 @@
+cron:
+- description: "update playlists"
+  url: /tasks/update_playlists
+  schedule: every 10 mins

@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('silk/', include(('silk.urls', 'silk'))),
+    # path('silk/', include(('silk.urls', 'silk'))),
     path('', include(('plugins.ml2lm.urls', 'ml2lm'))),
     path('', include(('plugins.frontend.urls', 'frontend'))),
 ]

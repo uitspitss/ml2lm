@@ -9,6 +9,7 @@ router.register(r'playlist', views.PlaylistViewSet)
 router.register(r'movie', views.MovieViewSet)
 
 urlpatterns = [
-    path('<slug:short_id>', views.redirect_latest_movie, name='redirect_latest_movie'),
+    path('<slug:short_id>/', views.redirect_latest_movie, name='redirect_latest_movie'),
+    path('tasks/update_playlists/', views.update_playlists, name='update_playlists'),
     path('api/', include((router.urls, 'api'))),
 ]
