@@ -26,7 +26,7 @@ TEST_RUNNER = "tests.runners.ManagedModelTestRunner"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG', 0)
+DEBUG = os.environ.get('DEBUG', False)
 DB_NAME = os.environ.get('DB_NAME', 'app')
 DB_USER = os.environ.get('DB_USER', 'postgres')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'password')
@@ -52,9 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'silk',
     'rest_framework',
-    'corsheaders',
     'webpack_loader',
     'plugins.ml2lm',
     'plugins.frontend',
@@ -68,8 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'silk.middleware.SilkyMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -200,12 +196,6 @@ LOGGING = {
 }
 
 
-# # silk
-# SILKY_AUTHENTICATION = True
-# SILKY_AUTHORISATION = True
-# SILKY_META = True
-
-
 # webpack_loader
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -217,7 +207,3 @@ WEBPACK_LOADER = {
         'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }
 }
-
-
-# cors-headers
-CORS_ORIGIN_ALLOW_ALL = True

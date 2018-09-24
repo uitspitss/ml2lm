@@ -1,8 +1,9 @@
 import re
 import logging
 from threading import Thread
+from django.conf import settings
 from django.views import View
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
 from rest_framework import viewsets, filters
 
@@ -22,12 +23,20 @@ def redirect_latest_movie(request, short_id: str) -> str:
     playlist.save()
     return redirect(latest_movie.url)
 
-def update_playlists(requets) -> str:
+def update_playlists(request) -> str:
     def command():
         call_command('update_playlists')
-    th = Thread(target=command)
-    th.start()
-    return redirect('/')
+
+    logger.debug(request.META)
+    if (
+        settings.DEBUG is not False
+        or request.get_host().split(':')[0] == '0.1.0.1'
+    ):
+        th = Thread(target=command)
+        th.start()
+        return redirect('/')
+    else:
+        raise Http404(request.META)
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
