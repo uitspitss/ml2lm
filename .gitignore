@@ -274,8 +274,8 @@ $RECYCLE.BIN/
 /bin/*
 /tmp/*
 !bin/manage.py
-/src/static/*
-/src/media/*
+/src/*
+!/src/static/*
 !.gitkeep
 !.gitignore
 /etc/settings_prod.py
