@@ -36,6 +36,7 @@ pytest = "*"
 pytest-django = "*"
 django-cors-headers = "*"
 django-webtest = "*"
+whitenoise = "*"
 
 [dev-packages]
 "flake8" = "*"

@@ -25,7 +25,7 @@ TEST_RUNNER = "tests.runners.ManagedModelTestRunner"
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', '5o44dA2C^~mA.ugYyhUv84)u%&9>^NW}-W,?&Y|b5q2KpV[}+VYrpS/oj:<]z7]')
 DEBUG = os.environ.get('DEBUG', False)
 DB_NAME = os.environ.get('DB_NAME', 'app')
 DB_USER = os.environ.get('DB_USER', 'postgres')
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,6 +142,8 @@ USE_TZ = True
 
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'src', 'static')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'src', 'media')

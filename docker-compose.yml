@@ -1,16 +1,26 @@
-version: "2"
+version: "3"
+
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+      - "443:443"
+    environment:
+      - APP_HOST=app
+    volumes:
+      - ./docker-components/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker-components/nginx/server.key:/etc/nginx/server.key
+      - ./docker-components/nginx/server.crt:/etc/nginx/server.crt
+
   app:
     build: .
     volumes:
-      - .:/var/www/code
-    ports:
-      - "8080:80"
+      - .:/app
+    # ports:/docker-components/docker_app.
+    #   - "8081:8081"  # for debug
     environment:
       - DB_HOST=db
-    links:
-      - db
-    command: supervisord -n
 
   db:
     image: postgres:latest
@@ -22,3 +32,17 @@ services:
       - POSTGRES_DB=app
     volumes:
       - ./docker-components/postgresql/volumes:/var/lib/postgresql/data
+
+  # # TODO: mysql setting
+  # mysql:
+  #   image: mysql:latest
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root_password
+  #     - MYSQL_DATABASE=db_name
+  #     - MYSQL_USER=db_user
+  #     - MYSQL_PASSWORD=db_password
+  #   volumes:
+  #     - ./docker-components/mysql/volumes:/var/lib/mysql
+  #   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci

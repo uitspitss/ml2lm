@@ -270,6 +270,7 @@ $RECYCLE.BIN/
 
 
 /docker-components/postgresql/*
+/docker-components/mysql/*
 /bin/*
 /tmp/*
 !bin/manage.py

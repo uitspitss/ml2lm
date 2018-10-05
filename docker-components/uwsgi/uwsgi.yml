@@ -1,0 +1,15 @@
+uwsgi:
+  chdir: /app
+  pidfile: /app/tmp/uwsgi.pid
+  logto: /app/tmp/uwsgi.log
+  processes: 2
+  harakiri: 30
+  master: true
+  enable-threads: true
+  single-interpreter: true
+  thunder-lock: true
+  max-requests: 6000
+  max-requests-delta: 300
+  uid: root
+  gid: root
+  file: main/wsgi.py
