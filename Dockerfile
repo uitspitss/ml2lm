@@ -2,7 +2,6 @@ FROM python:3.7
 
 RUN apt-get update -y && apt-get install -y less && rm -rf /var/lib/apt/lists/*
 RUN pip3 install --upgrade pip
-RUN pip3 install uwsgi
 RUN mkdir -p /app
 WORKDIR /app
 ADD requirements.txt requirements.txt

@@ -36,8 +36,9 @@ requests==2.19.1
 six==1.11.0
 sqlparse==0.2.4
 urllib3==1.23
+uwsgi==2.0.17.1
 waitress==1.1.0
 webencodings==0.5.1
 webob==1.8.2
-webtest==2.0.30
+webtest==2.0.32
 whitenoise==4.1
