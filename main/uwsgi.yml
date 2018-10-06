@@ -1,4 +1,5 @@
 uwsgi:
+  pidfile: /tmp/uwsgi.pid
   processes: 2
   harakiri: 30
   master: true
@@ -7,6 +8,4 @@ uwsgi:
   thunder-lock: true
   max-requests: 6000
   max-requests-delta: 300
-  uid: root
-  gid: root
   file: main/wsgi.py
