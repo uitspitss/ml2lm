@@ -26,7 +26,7 @@ TEST_RUNNER = "tests.runners.ManagedModelTestRunner"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', '5o44dA2C^~mA.ugYyhUv84)u%&9>^NW}-W,?&Y|b5q2KpV[}+VYrpS/oj:<]z7]')
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 DB_NAME = os.environ.get('DB_NAME', 'app')
 DB_USER = os.environ.get('DB_USER', 'postgres')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'password')
@@ -179,20 +179,20 @@ LOGGING = {
             'backupCount': 10,
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['develop'],
-            'level': 'DEBUG',
+            'handlers': ['develop'] if DEBUG is True else ['console'],
+            'level': 'DEBUG' if DEBUG is True else 'INFO',
             'propagate': True,
         },
         'plugins': {
-            'handlers': ['develop', 'console'],
-            'level': 'DEBUG',
+            'handlers': ['develop', 'console'] if DEBUG is True else ['console'],
+            'level': 'DEBUG' if DEBUG is True else 'INFO',
             'propagate': True,
         },
     },
