@@ -279,4 +279,4 @@ $RECYCLE.BIN/
 !.gitkeep
 !.gitignore
 /etc/settings_prod.py
-app.yaml
+secret.yaml
