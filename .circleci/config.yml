@@ -64,12 +64,12 @@ jobs:
         - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
         - run: gcloud app deploy --quiet --project ml2lm
 
-  workflows:
-    version: 2
-    main:
-      jobs:
-        - build
-        - deploy:
-          filters:
-            branches:
-              only: master
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - deploy:
+        filters:
+          branches:
+            only: master
