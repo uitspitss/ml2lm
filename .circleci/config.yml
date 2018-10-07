@@ -19,9 +19,6 @@ jobs:
           DB_NAME: app
           DB_PASSWORD: password
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.5
         environment:
           POSTGRES_USER: postgres
@@ -33,11 +30,9 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
 
       - run:
           name: install dependencies
@@ -51,11 +46,6 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
       - run:
           name: run tests
           command: |
@@ -65,3 +55,21 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+    deploy:
+      docker:
+        - image: google/cloud-sdk:219.0.1-alpine
+      steps:
+        - run: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+        - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+        - run: gcloud app deploy --quiet --project ml2lm
+
+  workflows:
+    version: 2
+    main:
+      jobs:
+        - build
+        - deploy:
+          filters:
+            branches:
+              only: master
