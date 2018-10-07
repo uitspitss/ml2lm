@@ -56,6 +56,7 @@ jobs:
     docker:
       - image: google/cloud-sdk:219.0.1-alpine
     steps:
+      - checkout
       - run: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: gcloud app deploy --quiet --project develop-187803
