@@ -19,7 +19,7 @@ load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = dirname(dirname(abspath(__file__)))
-TEST_RUNNER = "tests.runners.ManagedModelTestRunner"
+TEST_RUNNER = "main.runners.ManagedModelTestRunner"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
