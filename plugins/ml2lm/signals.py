@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=Playlist)
-def created_playlist(sender, instance, created, **kwargs):
+def notify_created_playlist(sender, instance, created, **kwargs):
     if created:
         logger.debug(
             f"created shorturl of {instance.url}"
