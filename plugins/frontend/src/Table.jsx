@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -17,12 +18,12 @@ export default class Table extends Component {
   }
 
   componentDidMount() {
-    fetch(this.props.endpoint)
+    axios.get(this.props.endpoint)
     .then(response => {
       if (response.status !== 200) {
         return this.setState({placeholder: "Something went wrong"});
       }
-      return response.json();
+      return response.data;
     })
     .then(data => this.setState({data: data, loaded: true}));
   }

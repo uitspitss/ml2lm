@@ -40,8 +40,6 @@ module.exports = {
         port: 8000,
         proxy: 'http://localhost:8000/'
     }),
-    new CleanWebpackPlugin(
-      ['./plugins/frontend/static/frontend/*.js'],
-    ),
+    new CleanWebpackPlugin(['./plugins/frontend/static/frontend/*.js']),
   ]
 };
