@@ -17,8 +17,8 @@ services:
     build: .
     volumes:
       - .:/app
-    # ports:
-    #   - "8081:8081"  # for debug
+    ports:
+      - "8081:8081" # for debug
     environment:
       - DB_HOST=db
 
@@ -32,7 +32,6 @@ services:
       - POSTGRES_DB=app
     volumes:
       - ./docker-components/postgresql/volumes:/var/lib/postgresql/data
-
   # # TODO: mysql setting
   # mysql:
   #   image: mysql:latest
