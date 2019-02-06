@@ -11,7 +11,7 @@ django-cors-headers==2.4.0
 django-rest-framework==0.1.0
 django-silk==3.0.1
 django-webpack-loader==0.6.0
-django-webtest==1.9.3
+django-webtest==1.9.4
 django==2.1
 djangorestframework==3.8.2
 gprof2dot==2016.10.13
@@ -22,13 +22,13 @@ jinja2==2.10
 lxml==4.2.5
 markupsafe==1.0
 more-itertools==4.3.0
-pluggy==0.7.1
+pluggy==0.8.0
 psycopg2-binary==2.7.5
-py==1.6.0
+py==1.7.0
 pycodestyle==2.4.0
 pygments==2.2.0
 pytest-django==3.4.3
-pytest==3.8.2
+pytest==3.9.3
 python-dateutil==2.7.3
 python-dotenv==0.9.1
 pytz==2018.5
@@ -39,6 +39,6 @@ urllib3==1.23
 uwsgi==2.0.17.1
 waitress==1.1.0
 webencodings==0.5.1
-webob==1.8.2
+webob==1.8.3
 webtest==2.0.32
 whitenoise==4.1
