@@ -1,6 +1,6 @@
 uwsgi:
   pidfile: /tmp/uwsgi.pid
-  processes: 2
+  processes: 1
   harakiri: 30
   master: true
   enable-threads: true
