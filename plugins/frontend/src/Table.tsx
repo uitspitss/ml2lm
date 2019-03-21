@@ -30,14 +30,10 @@ const query = gql`
   }
 `;
 
-client.query({ query }).then(res => {
-  console.log(res.data);
-});
-
 const Table: React.FC<{}> = () => {
   return (
     <React.Fragment>
-      <div className="table">dttable</div>
+      <div className="table">test</div>
     </React.Fragment>
   );
 };

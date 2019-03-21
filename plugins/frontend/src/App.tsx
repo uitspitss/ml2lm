@@ -8,7 +8,7 @@ import Form from './Form';
 import Table from './Table';
 
 const App = () => (
-  <div className="App">
+  <React.Fragment>
     <AppBar position="static">
       <Toolbar>
         <Typography variant="title" color="inherit">
@@ -17,7 +17,7 @@ const App = () => (
       </Toolbar>
     </AppBar>
 
-    <Grid container>
+    <Grid container justify="center">
       <Grid item>
         <Form />
       </Grid>
@@ -25,11 +25,7 @@ const App = () => (
         <Table />
       </Grid>
     </Grid>
-
-    {/* <Form endpoint="api/playlist/" /> */}
-
-    {/* <Table endpoint="api/playlist/" /> */}
-  </div>
+  </React.Fragment>
 );
 
 export default App;
