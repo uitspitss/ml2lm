@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 
 import Form from './Form';
 import Table from './Table';
-
 
 const App = () => (
   <div className="App">
@@ -18,9 +17,18 @@ const App = () => (
       </Toolbar>
     </AppBar>
 
-    <Form endpoint='api/playlist/' />
+    <Grid container>
+      <Grid item>
+        <Form />
+      </Grid>
+      <Grid item>
+        <Table />
+      </Grid>
+    </Grid>
 
-    <Table endpoint='api/playlist/' />
+    {/* <Form endpoint="api/playlist/" /> */}
+
+    {/* <Table endpoint="api/playlist/" /> */}
   </div>
 );
 

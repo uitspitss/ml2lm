@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"main":[{"name":"main-23db421cf1633a271ca8.js","path":"/Users/john/dev/ml2lm/plugins/frontend/static/frontend/main-23db421cf1633a271ca8.js"}]}}
+{"status":"done","chunks":{"main":[{"name":"main.js","path":"/Users/john/dev/ml2lm/plugins/frontend/static/frontend/main.js"}]},"error":"Error","message":"[at-loader] ./plugins/frontend/src/App.tsx:20:21 \n    TS2322: Type 'true' is not assignable to type '\"flex-start\" | \"center\" | \"flex-end\" | \"space-between\" | \"space-around\" | \"space-evenly\" | undefined'."}

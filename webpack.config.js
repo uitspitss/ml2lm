@@ -1,48 +1,34 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './plugins/frontend/src/index.jsx',
+  entry: './plugins/frontend/src/index.tsx',
   output: {
     path: `${__dirname}/plugins/frontend/static/frontend`,
-    filename: 'main-[hash].js'
+    filename: 'main.js',
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                ['env', {'modules': false}],
-                'react'
-              ]
-            }
-          }
-        ]
-      }
-    ]
+          { loader: 'babel-loader' },
+          { loader: 'awesome-typescript-loader' },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: [
-      '.js', '.jsx',
-    ]
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   plugins: [
-    new BundleTracker({filename: './plugins/frontend/webpack-stats.json'}),
+    new BundleTracker({ filename: './plugins/frontend/webpack-stats.json' }),
     new BrowserSyncPlugin({
-        host: 'localhost',
-        port: 8000,
-        proxy: 'http://localhost:8000/'
+      host: 'localhost',
+      port: 8000,
+      proxy: 'http://localhost:8000/',
     }),
-    new CleanWebpackPlugin([
-      './plugins/frontend/static/frontend/*',
-      './src/static/frontend/*'
-    ]),
-  ]
+  ],
 };
