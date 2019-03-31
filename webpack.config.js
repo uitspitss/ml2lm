@@ -11,12 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' },
-          { loader: 'awesome-typescript-loader' },
-        ],
+        use: 'ts-loader',
       },
     ],
   },

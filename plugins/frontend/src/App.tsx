@@ -17,11 +17,11 @@ const App = () => (
       </Toolbar>
     </AppBar>
 
-    <Grid container justify="center">
-      <Grid item>
+    <Grid container direction="row" justify="center" alignItems="center">
+      <Grid item xs={9}>
         <Form />
       </Grid>
-      <Grid item>
+      <Grid item xs={9} style={{ margin: 50 }}>
         <Table />
       </Grid>
     </Grid>

@@ -5,7 +5,9 @@ from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
-from rest_framework import viewsets, filters
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework import viewsets
 
 from .models import Playlist, Movie
 from .serializer import PlaylistSerializer, MovieSerializer
@@ -23,24 +25,27 @@ def redirect_latest_movie(request, short_id: str) -> str:
     playlist.save()
     return redirect(latest_movie.url)
 
+
 def update_playlists(request) -> str:
     def command():
         call_command('update_playlists')
 
     logger.debug(request.META)
-    if (
-        settings.DEBUG is not False
-        or request.get_host().split(':')[0] == '0.1.0.1'
-    ):
+    if settings.DEBUG is True or request.get_host().split(':')[0] == '0.1.0.1':
         th = Thread(target=command)
         th.start()
         return redirect('/')
     else:
         raise Http404(request.META)
 
+
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self) -> Playlist:
         qs = Playlist.objects.all()
