@@ -7,7 +7,7 @@ import { RestLink } from 'apollo-link-rest';
 
 import App from './App';
 
-const restLink = new RestLink({ uri: 'api/' });
+const restLink = new RestLink({ uri: 'api/', credentials: 'same-origin' });
 
 const client = new ApolloClient({
   link: restLink,
