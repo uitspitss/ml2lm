@@ -56,7 +56,7 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
   return (
     <Query
       query={CHECK_PLAYLIST_URL}
-      variables={{ url: values.url }}
+      variables={{ url: encodeURIComponent(values.url) }}
       skip={!values.url}
       pollInterval={1000}
     >

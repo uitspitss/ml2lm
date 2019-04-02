@@ -51,13 +51,13 @@ class PlaylistSerializer(serializers.ModelSerializer):
             playlist = Playlist.objects.create(
                 short_id=rand_str,
                 url=fetched_data['playlist_url'],
-                title=fetched_data['playlist_title']
+                title=fetched_data['playlist_title'],
             )
 
             latest_movie = Movie.objects.create(
                 playlist=playlist,
                 url=fetched_data['latest_movie_url'],
-                title=fetched_data['latest_movie_title']
+                title=fetched_data['latest_movie_title'],
             )
         except Exception as e:
             return {'error': "shorten process is wrong"}

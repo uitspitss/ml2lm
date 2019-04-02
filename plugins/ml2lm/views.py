@@ -5,8 +5,6 @@ from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from rest_framework import viewsets
 
 from .models import Playlist, Movie
@@ -43,14 +41,9 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
     def get_queryset(self) -> Playlist:
         qs = Playlist.objects.all()
         url = self.request.query_params.get('url')
-        logger.debug(url)
         if url is not None:
             if re.search(r'^https?://www.nicovideo.jp/mylist/', url):
                 mo = re.search(r'(\d+?)\/*$', url)
