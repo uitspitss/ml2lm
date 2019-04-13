@@ -5,6 +5,8 @@ from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 from rest_framework import viewsets
 
 from .models import Playlist, Movie
@@ -37,6 +39,7 @@ def update_playlists(request) -> str:
         raise Http404(request.META)
 
 
+@method_decorator(csrf_protect, 'dispatch')
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
