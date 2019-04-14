@@ -6,7 +6,7 @@ module.exports = (env, argv) => ({
   entry: './plugins/frontend/src/index.tsx',
   output: {
     path: `${__dirname}/plugins/frontend/static/frontend`,
-    filename: argv.mode === 'develop' ? 'main.js' : 'main.[hash].js',
+    filename: 'main.js',
   },
   module: {
     rules: [

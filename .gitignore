@@ -273,10 +273,10 @@ $RECYCLE.BIN/
 /docker-components/mysql/*
 /bin/*
 /tmp/*
-!bin/manage.py
-/src/*
-!/src/static/*
-!.gitkeep
-!.gitignore
 /etc/settings_prod.py
 secret.yaml
+/src/media
+
+!bin/manage.py
+!.gitkeep
+!.gitignore
