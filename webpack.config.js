@@ -1,12 +1,12 @@
 const BundleTracker = require('webpack-bundle-tracker');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-module.exports = {
+module.exports = (env, argv) => ({
   mode: 'development',
   entry: './plugins/frontend/src/index.tsx',
   output: {
     path: `${__dirname}/plugins/frontend/static/frontend`,
-    filename: 'main.js',
+    filename: argv.mode === 'develop' ? 'main.js' : 'main.[hash].js',
   },
   module: {
     rules: [
@@ -33,4 +33,4 @@ module.exports = {
       proxy: 'http://localhost:8000/',
     }),
   ],
-};
+});

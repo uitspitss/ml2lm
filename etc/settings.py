@@ -14,7 +14,7 @@ import os
 from os.path import join, dirname, abspath
 from dotenv import load_dotenv
 
-dotenv_path =  join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +25,9 @@ TEST_RUNNER = "main.runners.ManagedModelTestRunner"
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '5o44dA2C^~mA.ugYyhUv84)u%&9>^NW}-W,?&Y|b5q2KpV[}+VYrpS/oj:<]z7]')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', '5o44dA2C^~mA.ugYyhUv84)u%&9>^NW}-W,?&Y|b5q2KpV[}+VYrpS/oj:<]z7]'
+)
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 DB_NAME = os.environ.get('DB_NAME', 'app')
 DB_USER = os.environ.get('DB_USER', 'postgres')
@@ -82,9 +84,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = 'main.wsgi.application'
@@ -99,7 +101,7 @@ DATABASES = {
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
         'HOST': DB_HOST,
-        'PORT': 5432
+        'PORT': 5432,
     }
 }
 
@@ -109,17 +111,11 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 
@@ -157,9 +153,7 @@ LOGGING = {
         'verbose': {
             'format': '[%(levelname)s]%(asctime)s|%(module)s|%(process)d|%(thread)d|%(funcName)s|%(message)s'
         },
-        'simple': {
-            'format': '[%(levelname)s]%(asctime)s|%(funcName)s|%(message)s'
-        },
+        'simple': {'format': '[%(levelname)s]%(asctime)s|%(funcName)s|%(message)s'},
     },
     'handlers': {
         'production': {
@@ -181,7 +175,7 @@ LOGGING = {
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
         },
     },
     'loggers': {
@@ -205,8 +199,6 @@ WEBPACK_LOADER = {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'frontend/',  # must end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'plugins/frontend/webpack-stats.json'),
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+        'IGNORE': ['.+\.hot-update.js', '.+\.map'],
     }
 }
