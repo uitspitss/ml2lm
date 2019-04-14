@@ -2,6 +2,11 @@ runtime: python37
 
 service: ml2lm
 
+resources:
+  cpu: 1
+  memory_gb: 3
+  disk_size_gb: 10
+
 beta_settings:
   cloud_sql_instances: develop-187803:asia-northeast1:db000
 
