@@ -36,7 +36,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            bin/manage.py collectstatic
+            bin/manage.py collectstatic --noinput
 
       - save_cache:
           paths:
