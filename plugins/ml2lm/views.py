@@ -3,6 +3,7 @@ import logging
 from threading import Thread
 from django.conf import settings
 from django.views import View
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
 from django.views.decorators.csrf import csrf_protect
@@ -34,7 +35,7 @@ def update_playlists(request) -> str:
     if settings.DEBUG is True or request.get_host().split(':')[0] == '0.1.0.1':
         th = Thread(target=command)
         th.start()
-        return redirect('/')
+        return HttpResponse(status=200)
     else:
         raise Http404(request.META)
 
