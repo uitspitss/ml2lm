@@ -5,7 +5,7 @@ service: ml2lm
 beta_settings:
   cloud_sql_instances: develop-187803:asia-northeast1:db000
 
-entrypoint: uwsgi --http :$PORT -y etc/uwsgi.yml
+entrypoint: bin/manage.py migrate && uwsgi --http :$PORT -y etc/uwsgi.yml
 
 includes:
-- secret.yaml
+  - secret.yaml

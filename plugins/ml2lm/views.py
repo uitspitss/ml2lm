@@ -5,7 +5,9 @@ from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect, Http404
 from django.core.management import call_command
-from rest_framework import viewsets, filters
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
+from rest_framework import viewsets
 
 from .models import Playlist, Movie
 from .serializer import PlaylistSerializer, MovieSerializer
@@ -23,21 +25,21 @@ def redirect_latest_movie(request, short_id: str) -> str:
     playlist.save()
     return redirect(latest_movie.url)
 
+
 def update_playlists(request) -> str:
     def command():
         call_command('update_playlists')
 
     logger.debug(request.META)
-    if (
-        settings.DEBUG is not False
-        or request.get_host().split(':')[0] == '0.1.0.1'
-    ):
+    if settings.DEBUG is True or request.get_host().split(':')[0] == '0.1.0.1':
         th = Thread(target=command)
         th.start()
         return redirect('/')
     else:
         raise Http404(request.META)
 
+
+@method_decorator(csrf_protect, 'dispatch')
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
@@ -45,7 +47,6 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     def get_queryset(self) -> Playlist:
         qs = Playlist.objects.all()
         url = self.request.query_params.get('url')
-        logger.debug(url)
         if url is not None:
             if re.search(r'^https?://www.nicovideo.jp/mylist/', url):
                 mo = re.search(r'(\d+?)\/*$', url)

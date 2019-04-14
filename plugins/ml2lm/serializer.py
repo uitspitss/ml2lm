@@ -30,12 +30,17 @@ class PlaylistSerializer(serializers.ModelSerializer):
         return obj.thumbnail_url
 
     def create(self, validated_data):
+        url = validated_data['url']
+
+        qs = Playlist.objects.filter(url=url)
+        if qs:
+            return qs[0]
+
         f = lambda: str(uuid4().hex)[:6]
         rand_str = f()
         while Playlist.objects.filter(short_id=rand_str).exists() is True:
             rand_str = f()
 
-        url = validated_data['url']
         if re.search(r'^https?://www.nicovideo.jp/mylist/', url):
             playlist_id = re.search(r'(\d+?)\/*$', url)[1]
             fetched_data = NicovideoFetcher.fetch_playlist_and_latest_movie(playlist_id)
@@ -51,13 +56,13 @@ class PlaylistSerializer(serializers.ModelSerializer):
             playlist = Playlist.objects.create(
                 short_id=rand_str,
                 url=fetched_data['playlist_url'],
-                title=fetched_data['playlist_title']
+                title=fetched_data['playlist_title'],
             )
 
             latest_movie = Movie.objects.create(
                 playlist=playlist,
                 url=fetched_data['latest_movie_url'],
-                title=fetched_data['latest_movie_title']
+                title=fetched_data['latest_movie_title'],
             )
         except Exception as e:
             return {'error': "shorten process is wrong"}
@@ -66,5 +71,11 @@ class PlaylistSerializer(serializers.ModelSerializer):
 
     def validate_url(self, url):
         url = url.strip()
+        if re.search(r'^https?://www.nicovideo.jp/mylist/', url):
+            playlist_id = re.search(r'(\d+?)\/*$', url)[1]
+            url = f'https://www.nicovideo.jp/mylist/{playlist_id}'
+        elif re.search(r'^https?://www.youtube.com/.*list=', url):
+            playlist_id = re.search(r'list=([^&]+)', url)[1]
+            url = f'https://www.youtube.com/playlist?list={playlist_id}'
         logger.info(url)
         return url

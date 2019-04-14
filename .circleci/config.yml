@@ -28,7 +28,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
           name: install dependencies
@@ -36,6 +36,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            bin/manage.py collectstatic --noinput
 
       - save_cache:
           paths:
