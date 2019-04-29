@@ -1,11 +1,8 @@
 runtime: python37
 
-service: ml2lm
+instance_class: F2
 
-resources:
-  cpu: 1
-  memory_gb: 3
-  disk_size_gb: 10
+service: ml2lm
 
 beta_settings:
   cloud_sql_instances: develop-187803:asia-northeast1:db000
@@ -14,3 +11,6 @@ entrypoint: bin/manage.py migrate && uwsgi --http :$PORT -y etc/uwsgi.yml
 
 includes:
   - secret.yaml
+
+skip_files:
+  - node_modules/

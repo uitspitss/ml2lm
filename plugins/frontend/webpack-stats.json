@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"main":[{"name":"main.js","path":"/Users/john/dev/ml2lm/plugins/frontend/static/frontend/main.js"}]}}
+{"status":"done","chunks":{"main":[{"name":"main.js","path":"/Users/john/dev/ml2lm/plugins/frontend/static/frontend/main.js"}]},"error":"unknown-error","message":"[tsl] ERROR in /Users/john/dev/ml2lm/plugins/frontend/src/Form.tsx(87,34)\n      TS1005: ',' expected."}

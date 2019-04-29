@@ -6,6 +6,6 @@ uwsgi:
   enable-threads: true
   single-interpreter: true
   thunder-lock: true
-  max-requests: 6000
-  max-requests-delta: 300
+  max-requests: 600
+  max-requests-delta: 30
   file: main/wsgi.py

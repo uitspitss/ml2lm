@@ -83,9 +83,6 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
                         label="shorten playlist url"
                         placeholder="shorten url"
                         style={{ width: '50vw' }}
-                        InputProps={{
-                          endAdornment: loading && <CircularProgress />,
-                        }}
                       />
                     </Grid>
                     <Grid item style={{ margin: 10 }}>
@@ -95,7 +92,8 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
                         disabled={!isValid || isSubmitting}
                         color="primary"
                       >
-                        shorten
+                        {loading && <CircularProgress />}
+                        {isSubmitting ? 'submitting...' : 'shorten'}
                       </Button>
                     </Grid>
                   </Grid>
