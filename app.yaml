@@ -11,6 +11,3 @@ entrypoint: bin/manage.py migrate && uwsgi --http :$PORT -y etc/uwsgi.yml
 
 includes:
   - secret.yaml
-
-skip_files:
-  - node_modules/
