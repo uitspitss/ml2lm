@@ -86,15 +86,18 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
                       />
                     </Grid>
                     <Grid item style={{ margin: 10 }}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        disabled={!isValid || isSubmitting}
-                        color="primary"
-                      >
-                        {loading && <CircularProgress />}
-                        {isSubmitting ? 'submitting...' : 'shorten'}
-                      </Button>
+                      {loading ? (
+                        <CircularProgress />
+                      ) : (
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          disabled={!isValid || isSubmitting}
+                          color="primary"
+                        >
+                          {isSubmitting ? 'submitting...' : 'shorten'}
+                        </Button>
+                      )}
                     </Grid>
                   </Grid>
                 </form>
