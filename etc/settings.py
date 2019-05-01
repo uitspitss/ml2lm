@@ -225,4 +225,18 @@ WEBPACK_LOADER = {
     }
 }
 
+
+# django-allauth
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+AUTHENTICATION_BACKENDS = (
+    # 'django.contrib.auth.backends.ModelBackend',
+    'alauth.afccount.auth_backends.AuthenticationBackend',
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
