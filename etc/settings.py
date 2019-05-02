@@ -231,8 +231,8 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 AUTHENTICATION_BACKENDS = (
-    # 'django.contrib.auth.backends.ModelBackend',
-    'alauth.afccount.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
