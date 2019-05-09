@@ -1,7 +1,7 @@
 uwsgi:
-  chdir: /app
-  pidfile: /app/tmp/uwsgi.pid
-  logto: /app/tmp/uwsgi.log
+  chdir: /var/www/app
+  pidfile: /var/www/app/tmp/uwsgi.pid
+  logto: /var/www/app/tmp/uwsgi.log
   processes: 2
   harakiri: 30
   master: true
@@ -10,6 +10,6 @@ uwsgi:
   thunder-lock: true
   max-requests: 6000
   max-requests-delta: 300
-  uid: root
-  gid: root
+  uid: www-data
+  gid: www-data
   file: main/wsgi.py
