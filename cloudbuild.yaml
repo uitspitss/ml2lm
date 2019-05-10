@@ -35,6 +35,7 @@ steps:
         "gcr.io/$PROJECT_ID/ml2lm/app:$COMMIT_SHA",
         "bin/manage.py",
         "test",
+        "--",
         "-v",
       ]
     id: "django-test"
