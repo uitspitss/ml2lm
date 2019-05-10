@@ -3,4 +3,4 @@
 *.swp
 *.log
 .DS_STORE
-/docker-components
+docker-components
