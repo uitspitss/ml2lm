@@ -1,0 +1,41 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/ml2lm/app:$COMMIT_SHA", "."]
+    id: "django-build"
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "run",
+        "-e",
+        "POSTGRES_USER=postgres",
+        "-e",
+        "POSTGRES_PASSWORD=password",
+        "-e",
+        "POSTGRES_DB=app",
+        "--name",
+        "postgres",
+        "-itd",
+        "postgres:9.6",
+      ]
+    id: "postgres-run"
+    waitFor: ["-"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "run",
+        "--rm",
+        "-e",
+        "DB_HOST=db",
+        "-v",
+        "/workspace:/var/www/app",
+        "--link",
+        "postgres",
+        "gcr.io/$PROJECT_ID/ml2lm/app:$COMMIT_SHA",
+        "bin/manage.py",
+        "test",
+        "-v",
+      ]
+    id: "django-test"
+    waitFor: ["django-build", "postgres-run"]
