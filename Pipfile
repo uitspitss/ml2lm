@@ -45,6 +45,7 @@ uwsgi = "*"
 argon2-cffi = "*"
 django-allauth = "*"
 django-extensions = "*"
+pytest-mock = "*"
 
 [dev-packages]
 "flake8" = "*"
