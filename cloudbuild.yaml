@@ -40,3 +40,28 @@ steps:
       ]
     id: "django-test"
     waitFor: ["django-build", "postgres-run"]
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      [
+        "kms",
+        "decrypt",
+        "--ciphertext-file=secret.yaml.enc",
+        "--plaintext-file=secret.yaml",
+        "--location=global",
+        "--keyring=ml2lm",
+        "--key=secret",
+      ]
+    id: "decrypt-secret"
+    waitFor: ["-"]
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: [
+      "app",
+      "deploy",
+      "--quiet",
+      "--project",
+      "$PROJECT_ID"
+    ]
+    id: "deploy-app"
+    waitFor: ["django-test", "decrypt-secret"]
