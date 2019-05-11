@@ -54,7 +54,7 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
     <Query
       query={CHECK_PLAYLIST_URL}
       variables={{ url: encodeURIComponent(values.url) }}
-      skip={!values.url}
+      skip={!isValid}
       pollInterval={1000}
     >
       {({ data, loading }) => (
@@ -142,7 +142,9 @@ const Form: React.FC<InjectedFormikProps<{}, FormValues>> = ({
 export default withFormik({
   mapPropsToValues: () => ({ url: '' }),
   validationSchema: Yup.object().shape({
-    url: Yup.string().required('Required'),
+    url: Yup.string()
+      .required('Required')
+      .url('Require URL'),
   }),
   handleSubmit: (values, { setSubmitting }) => {},
 })(Form);
