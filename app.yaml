@@ -11,7 +11,7 @@ entrypoint: bin/manage.py migrate && uwsgi --http :$PORT -y etc/uwsgi.yml
 
 handlers:
   - url: /static
-    static_dir: src/static/
+    static_dir: src/static
 
 includes:
   - secret.yaml
