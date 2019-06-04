@@ -70,7 +70,6 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -161,8 +160,6 @@ USE_TZ = True
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'src', 'static')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'src', 'media')
 
@@ -218,12 +215,15 @@ LOGGING = {
 # webpack_loader
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'CACHE': not DEBUG,
+        'CACHE': True,
         'BUNDLE_DIR_NAME': 'frontend/',  # must end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'plugins/frontend/webpack-stats.json'),
-        'IGNORE': ['.+\.hot-update.js', '.+\.map'],
     }
 }
+if DEBUG is True:
+    WEBPACK_LOADER['DEFAULT']['STATS_FILE'] = os.path.join(
+        BASE_DIR, 'tmp/webpack-stats.json'
+    )
 
 
 # django-allauth

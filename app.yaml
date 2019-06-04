@@ -9,5 +9,9 @@ beta_settings:
 
 entrypoint: bin/manage.py migrate && uwsgi --http :$PORT -y etc/uwsgi.yml
 
+handlers:
+  - url: /static
+    static_dir: static/
+
 includes:
   - secret.yaml

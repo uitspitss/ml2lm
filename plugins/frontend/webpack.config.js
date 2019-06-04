@@ -1,12 +1,14 @@
+const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = (env, argv) => ({
   mode: 'development',
-  entry: './plugins/frontend/src/index.tsx',
+  entry: './src/index.tsx',
   output: {
-    path: `${__dirname}/plugins/frontend/static/frontend`,
-    filename: 'main.js',
+    path: path.resolve('../../src/static/frontend'),
+    filename: 'main-[hash].js',
+    publicPath: argv.mode === 'production' ? '' : 'http://localhost:3000/static/frontend/',
   },
   module: {
     rules: [
@@ -25,12 +27,17 @@ module.exports = (env, argv) => ({
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
+  devServer: {
+    hot: true,
+    inline: true,
+    port: 3000,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  },
   plugins: [
-    new BundleTracker({ filename: './plugins/frontend/webpack-stats.json' }),
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: 8000,
-      proxy: 'http://localhost:8000/',
+    new BundleTracker({
+      filename: argv.mode === 'production' ? './webpack-stats.json' : '../../tmp/webpack-stats.json'
     }),
   ],
 });

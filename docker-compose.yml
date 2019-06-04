@@ -12,6 +12,7 @@ services:
       - ./docker-components/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./docker-components/nginx/server.key:/etc/nginx/server.key
       - ./docker-components/nginx/server.crt:/etc/nginx/server.crt
+      - ./src/static:/var/www/app/src/static
     depends_on:
       - app
       - db
