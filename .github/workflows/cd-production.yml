@@ -29,7 +29,7 @@ jobs:
         env:
           CLOUDSDK_CORE_PROJECT: ${{ secrets.PROJECT_ID }}
         with:
-          args: deploy --quiet
+          args: app deploy --quiet
 
       - name: Slack notification
         uses: 8398a7/action-slack@v2
