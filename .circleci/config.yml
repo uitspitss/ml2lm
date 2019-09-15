@@ -59,7 +59,7 @@ jobs:
     steps:
       - checkout
       - run: echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-service-key.json
-      - run: echo $SECRET | base64 -d > secret.yaml
+      - run: echo $SECRET | base64 -d > secrets.yaml
       - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: gcloud app deploy --quiet --project develop-187803
 

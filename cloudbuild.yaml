@@ -49,8 +49,8 @@ steps:
       [
         "kms",
         "decrypt",
-        "--ciphertext-file=secret.yaml.enc",
-        "--plaintext-file=secret.yaml",
+        "--ciphertext-file=secrets.yaml.enc",
+        "--plaintext-file=secrets.yaml",
         "--location=global",
         "--keyring=ml2lm",
         "--key=secret",
