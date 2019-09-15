@@ -273,7 +273,7 @@ $RECYCLE.BIN/
 /docker-components/mysql/*
 /bin/*
 /tmp/*
-secret.yaml
+secrets.yaml
 /src/media
 
 !bin/manage.py
